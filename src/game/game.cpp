@@ -26,7 +26,7 @@ void Game::Update() {
 
                 enemies[j].Damage();
 
-                if (enemies[j].IsAlive()) {
+                if (!enemies[j].IsAlive()) {
                     enemies.erase(enemies.begin() + j);
                 }
 
