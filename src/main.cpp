@@ -1,7 +1,8 @@
 #include "raylib.h"
 #include "../config/config.h"
 #include "../config/playerConfig.h"
-#include "player/player.h"
+#include "player/player.hpp"
+#include "game/game.hpp"
 
 int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
@@ -12,25 +13,17 @@ int main() {
 
     Player player(x, y, PLAYER_SIZE, PLAYER_SPEED, playerColor);
 
+    Game game(player);
+
     Rectangle targetObject = {200, 200, 50, 50};
 
     while (!WindowShouldClose()) {
-        player.Update();
-
-        // Check bullet collisions with object
-        auto& bullets = player.GetBullets();
-        for (int i = 0; i < bullets.size(); i++) {
-            if (CheckCollisionCircleRec(bullets[i].GetPosition(), 5, targetObject)) {
-                bullets.erase(bullets.begin() + i);
-                i--;
-            }
-        }
-
+        // player.Update();
         BeginDrawing();
         ClearBackground(backgroundColor);
-
-        player.Draw();
+        game.Update();
         DrawRectangleLinesEx(targetObject, 3, RED);
+        DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
         player.DrawHitBox(CheckCollisionRecs(player.GetRect(), targetObject));
 
         EndDrawing();

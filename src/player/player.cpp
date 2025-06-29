@@ -1,4 +1,4 @@
-#include "player.h"
+#include "player.hpp"
 #include "math.h"
 #include "../../config/playerConfig.h"
 
@@ -31,6 +31,9 @@ void Player::Draw() {
 }
 
 void Player::Shoot() {
+
+    if(bulletCount <= 0) return; 
+
     Vector2 mousePos = GetMousePosition();
 
     float startX = x + size / 2;
@@ -43,6 +46,13 @@ void Player::Shoot() {
     dirY /= len;
 
     bullets.emplace_back(startX, startY, dirX, dirY);
+
+    bulletCount -= 1;
+}
+
+std::string Player::GetBulletCount()
+{
+    return std::to_string(bulletCount);
 }
 
 Rectangle Player::GetRect() const {

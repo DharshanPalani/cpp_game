@@ -3,6 +3,7 @@
 #include <vector>
 #include "raylib.h"
 #include "../bullet/bullet.hpp"
+#include <string>
 
 class Player {
 public:
@@ -11,10 +12,12 @@ public:
     void Update();
     void Draw();
     void Shoot();
+    std::string GetBulletCount();
     Rectangle GetRect() const;
     void DrawHitBox(bool isColliding) const;
 
     std::vector<Bullet>& GetBullets();
+    int bulletCount = 10;
 
 private:
     float x, y;
