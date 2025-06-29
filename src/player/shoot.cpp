@@ -16,3 +16,7 @@ void Player::Shoot() {
 
     bullets.push_back({ startX, startY, directionX, directionY});
 }
+
+Rectangle bullet::GetRect() {
+    return Rectangle{x, y, 10, 10};
+}

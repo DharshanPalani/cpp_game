@@ -1,18 +1,20 @@
 #pragma once
 
 #include <vector>
+#include "raylib.h"
 
 struct bullet {
-    int x, y;
+    float x, y;
     float dx, dy;
+    Rectangle GetRect();
 
     bullet(float x, float y, float dx, float dy)
         : x(x), y(y), dx(dx), dy(dy) {}
 };
 
 struct Player {
-    int x;
-    int y;
+    float x;
+    float y;
     int size;
     int speed;
     Color color;
@@ -22,5 +24,6 @@ struct Player {
     void Update();
     void Draw();
     void Shoot();
+    Rectangle GetRect();
+    void DrawHitBox(bool isColliding);
 };
-
