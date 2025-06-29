@@ -1,12 +1,11 @@
-#include "raylib.h"
 #include "player.h"
 #include "math.h"
 #include "../../config/playerConfig.h"
 
-float timeSinceLastShot = 0;
+Player::Player(float x, float y, int size, int speed, Color color)
+    : x(x), y(y), size(size), speed(speed), color(color) {}
 
 void Player::Update() {
-
     timeSinceLastShot += GetFrameTime();
 
     if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) x += speed;
@@ -14,41 +13,48 @@ void Player::Update() {
     if (IsKeyDown(KEY_DOWN)  || IsKeyDown(KEY_S)) y += speed;
     if (IsKeyDown(KEY_UP)    || IsKeyDown(KEY_W)) y -= speed;
 
-    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && timeSinceLastShot >= PLAYER_FIRE_RATE) {
-        Player::Shoot();
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && timeSinceLastShot >= PLAYER_FIRE_RATE) {
+        Shoot();
         timeSinceLastShot = 0;
     }
-    
-    
-    for (int i = 0; i < bullets.size(); i++) {
-        bullets[i].x += bullets[i].dx * 10;
-        bullets[i].y += bullets[i].dy * 10;
 
-        Rectangle target = {200, 200, 50, 50};
-
-        // Check bullet collision with the object
-        if (CheckCollisionCircleRec({ bullets[i].x, bullets[i].y }, 5, target)) {
-            // Remove bullet
-            bullets.erase(bullets.begin() + i);
-            i--; // Decreasing coz bullet is removed
-        }
+    for (auto& bullet : bullets) {
+        bullet.Update();
     }
 }
 
 void Player::Draw() {
-    DrawRectangle(x,y,size,size, color);
+    DrawRectangle((int)x, (int)y, size, size, color);
     for (auto& bullet : bullets) {
-        DrawCircle(static_cast<int>(bullet.x), static_cast<int>(bullet.y), 5, RED);
+        bullet.Draw();
     }
 }
 
-Rectangle Player::GetRect() {
-    return Rectangle{x, y, float(size), float(size)};
+void Player::Shoot() {
+    Vector2 mousePos = GetMousePosition();
+
+    float startX = x + size / 2;
+    float startY = y + size / 2;
+
+    float dirX = mousePos.x - startX;
+    float dirY = mousePos.y - startY;
+    float len = sqrt(dirX * dirX + dirY * dirY);
+    dirX /= len;
+    dirY /= len;
+
+    bullets.emplace_back(startX, startY, dirX, dirY);
 }
 
-void Player::DrawHitBox(bool isColliding) {
+Rectangle Player::GetRect() const {
+    return Rectangle{ x, y, float(size), float(size) };
+}
 
-    if(isColliding == true) {
+void Player::DrawHitBox(bool isColliding) const {
+    if (isColliding) {
         DrawRectangleLinesEx(GetRect(), 3, BLACK);
     }
+}
+
+std::vector<Bullet>& Player::GetBullets() {
+    return bullets;
 }

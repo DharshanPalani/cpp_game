@@ -2,28 +2,26 @@
 
 #include <vector>
 #include "raylib.h"
+#include "../bullet/bullet.hpp"
 
-struct bullet {
-    float x, y;
-    float dx, dy;
-    Rectangle GetRect();
-
-    bullet(float x, float y, float dx, float dy)
-        : x(x), y(y), dx(dx), dy(dy) {}
-};
-
-struct Player {
-    float x;
-    float y;
-    int size;
-    int speed;
-    Color color;
-
-    std::vector<bullet> bullets;
+class Player {
+public:
+    Player(float x, float y, int size, int speed, Color color);
 
     void Update();
     void Draw();
     void Shoot();
-    Rectangle GetRect();
-    void DrawHitBox(bool isColliding);
+    Rectangle GetRect() const;
+    void DrawHitBox(bool isColliding) const;
+
+    std::vector<Bullet>& GetBullets();
+
+private:
+    float x, y;
+    int size;
+    int speed;
+    Color color;
+
+    float timeSinceLastShot = 0.0f;
+    std::vector<Bullet> bullets;
 };

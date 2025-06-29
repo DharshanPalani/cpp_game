@@ -4,36 +4,38 @@
 #include "player/player.h"
 
 int main() {
-
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-
-    int x = (SCREEN_WIDTH - 20) / 2;
-    int y = (SCREEN_HEIGHT - 20) / 2;
-
-    Player player = {x, y, PLAYER_SIZE, PLAYER_SPEED, playerColor};
-
-    Rectangle object = {200, 200, 50, 50};
-
     SetTargetFPS(60);
 
-    while (!WindowShouldClose()) {
+    int x = (SCREEN_WIDTH - PLAYER_SIZE) / 2;
+    int y = (SCREEN_HEIGHT - PLAYER_SIZE) / 2;
 
+    Player player(x, y, PLAYER_SIZE, PLAYER_SPEED, playerColor);
+
+    Rectangle targetObject = {200, 200, 50, 50};
+
+    while (!WindowShouldClose()) {
         player.Update();
 
-        bool isColliding = CheckCollisionRecs(player.GetRect(), object);
+        // Check bullet collisions with object
+        auto& bullets = player.GetBullets();
+        for (int i = 0; i < bullets.size(); i++) {
+            if (CheckCollisionCircleRec(bullets[i].GetPosition(), 5, targetObject)) {
+                bullets.erase(bullets.begin() + i);
+                i--;
+            }
+        }
 
         BeginDrawing();
         ClearBackground(backgroundColor);
 
         player.Draw();
-        DrawRectangleLinesEx(object, 3, RED);
+        DrawRectangleLinesEx(targetObject, 3, RED);
+        player.DrawHitBox(CheckCollisionRecs(player.GetRect(), targetObject));
 
-        player.DrawHitBox(isColliding);
-        DrawText("Hello, Raylib!", 20, 20, fontSize, textColor);
         EndDrawing();
     }
 
     CloseWindow();
-
     return 0;
 }
