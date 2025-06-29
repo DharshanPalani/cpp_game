@@ -17,7 +17,7 @@ public:
     void DrawHitBox(bool isColliding) const;
 
     std::vector<Bullet>& GetBullets();
-    int bulletCount = 10;
+    int bulletCount = 1000;
 
 private:
     float x, y;
