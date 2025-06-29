@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "../config/config.h"
+#include "../config/playerConfig.h"
 #include "player/player.h"
 
 int main() {
