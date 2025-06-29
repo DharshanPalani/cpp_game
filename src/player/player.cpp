@@ -68,3 +68,7 @@ void Player::DrawHitBox(bool isColliding) const {
 std::vector<Bullet>& Player::GetBullets() {
     return bullets;
 }
+
+Vector2 Player::GetPosition() const {
+    return {x, y};
+}

@@ -7,6 +7,7 @@ public:
     Enemy(float x, float y, int size, int speed, int health, Color color);
     void Draw();
     void Damage();
+    void MoveTowardsPlayer(Vector2 playerVector);
     bool IsAlive();
     Rectangle GetRect();
 

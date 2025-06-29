@@ -12,6 +12,7 @@ public:
     void Update();
     void Draw();
     void Shoot();
+    Vector2 GetPosition() const;
     std::string GetBulletCount();
     Rectangle GetRect() const;
     void DrawHitBox(bool isColliding) const;

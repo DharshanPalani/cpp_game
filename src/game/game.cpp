@@ -9,7 +9,10 @@ void Game::Update() {
     player.Update();
     player.Draw();
     for (Enemy& enemy : enemies) {
-        enemy.Draw();
+        if(enemy.IsAlive()) {
+            enemy.Draw();
+            enemy.MoveTowardsPlayer(player.GetPosition());
+        }
     }
 
     auto& bullets = player.GetBullets();
