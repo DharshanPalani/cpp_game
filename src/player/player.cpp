@@ -50,7 +50,7 @@ void Player::Shoot() {
     bulletCount -= 1;
 }
 
-std::string Player::GetBulletCount()
+std::string Player::GetBulletCount() const
 {
     return std::to_string(bulletCount);
 }
@@ -59,10 +59,20 @@ Rectangle Player::GetRect() const {
     return Rectangle{ x, y, float(size), float(size) };
 }
 
+std::string Player::GetCoinCount() const
+{
+    return std::to_string(coins);
+}
+
 void Player::DrawHitBox(bool isColliding) const {
     if (isColliding) {
         DrawRectangleLinesEx(GetRect(), 3, BLACK);
     }
+}
+
+void Player::IncrementCoins(int coinAmountToIncrement)
+{
+    coins = coins + coinAmountToIncrement;
 }
 
 std::vector<Bullet>& Player::GetBullets() {

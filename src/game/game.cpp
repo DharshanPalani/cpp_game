@@ -25,6 +25,7 @@ void Game::Update() {
                 bulletErased = true;
 
                 enemies[j].Damage();
+                player.IncrementCoins(1);
 
                 if (!enemies[j].IsAlive()) {
                     enemies.erase(enemies.begin() + j);

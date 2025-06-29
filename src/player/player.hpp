@@ -12,18 +12,23 @@ public:
     void Update();
     void Draw();
     void Shoot();
-    Vector2 GetPosition() const;
-    std::string GetBulletCount();
-    Rectangle GetRect() const;
     void DrawHitBox(bool isColliding) const;
+    void IncrementCoins(int coinAmountToIncrement);
 
+    std::string GetBulletCount() const;
+    std::string GetCoinCount() const;
     std::vector<Bullet>& GetBullets();
+    Vector2 GetPosition() const;
+    Rectangle GetRect() const;
+
+
     int bulletCount = 1000;
 
 private:
     float x, y;
     int size;
     int speed;
+    int coins = 10;
     Color color;
 
     float timeSinceLastShot = 0.0f;
