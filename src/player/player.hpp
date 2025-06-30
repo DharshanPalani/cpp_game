@@ -23,7 +23,7 @@ public:
     Rectangle GetRect() const;
 
 
-    int bulletCount = 1000;
+    int bulletCount = 10;
 
 private:
     float x, y;

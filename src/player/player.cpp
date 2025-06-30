@@ -17,6 +17,7 @@ void Player::Update(CameraShake& shake, Camera2D* camera) {
     float delta = GetFrameTime();
 
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && timeSinceLastShot >= PLAYER_FIRE_RATE) {
+        if(bulletCount <= 0) return;
         shake.ShakeCamera(camera, 0.1f, 10, delta);
         Shoot();
         timeSinceLastShot = 0;
@@ -38,7 +39,6 @@ void Player::Draw() {
 
 void Player::Shoot() {
 
-    if(bulletCount <= 0) return;
     
 
     Vector2 mousePos = GetMousePosition();
@@ -59,7 +59,7 @@ void Player::Shoot() {
 
 std::string Player::GetBulletCount() const
 {
-    return std::to_string(bulletCount);
+    return "Ammo: " + std::to_string(bulletCount);
 }
 
 Rectangle Player::GetRect() const {
@@ -68,7 +68,7 @@ Rectangle Player::GetRect() const {
 
 std::string Player::GetCoinCount() const
 {
-    return std::to_string(coins);
+    return "Coin: " + std::to_string(coins);
 }
 
 void Player::DrawHitBox(bool isColliding) const {

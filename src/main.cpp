@@ -61,7 +61,7 @@ int main() {
             BeginMode2D(camera);
             game.Update(cameraShake, &camera);
             DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
-            DrawText(player.GetCoinCount().c_str(), 30, 30, 20, BLACK);
+            DrawText(player.GetCoinCount().c_str(), 10, 30, 20, BLACK);
         }
 
         EndDrawing();
