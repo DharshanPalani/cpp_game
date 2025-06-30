@@ -7,6 +7,6 @@ const int SCREEN_HEIGHT = 600;
 
 const char* WINDOW_TITLE = "RayLib Test";
 
-const Color backgroundColor = {0,0,255,255};
+const Color backgroundColor = {59, 31, 84, 255};
 const Color textColor = {0,0,0,255};
 const int fontSize = 20;
