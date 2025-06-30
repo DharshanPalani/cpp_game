@@ -7,7 +7,8 @@
 // Game state enum
 enum class GameState {
     MENU,
-    PLAYING
+    PLAYING,
+    SHOP
 };
 
 int main() {
@@ -32,6 +33,11 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(backgroundColor);
+
+        if(state != GameState::MENU) {
+            DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
+            DrawText(player.GetCoinCount().c_str(), 10, 30, 20, BLACK);
+        }
         
         if (state == GameState::MENU) {
             ClearBackground(BLACK);
@@ -55,13 +61,51 @@ int main() {
                 state = GameState::PLAYING;
             } else if (IsKeyPressed(KEY_ESCAPE)) {
                 break;
+            } else if(IsKeyPressed(KEY_E)) {
+                state = GameState::SHOP;
             }
 
         } else if (state == GameState::PLAYING) {
             BeginMode2D(camera);
             game.Update(cameraShake, &camera);
-            DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
-            DrawText(player.GetCoinCount().c_str(), 10, 30, 20, BLACK);
+            // DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
+            // DrawText(player.GetCoinCount().c_str(), 10, 30, 20, BLACK);
+            
+            if(IsKeyPressed(KEY_E)) {
+                state = GameState::SHOP;
+            }
+        } else if (state == GameState::SHOP) {
+            DrawRectangle(100, 100, 400, 300, DARKGRAY);
+            DrawText("SHOP", 250, 120, 30, WHITE);
+
+            DrawRectangle(150, 170, 300, 40, LIGHTGRAY);
+            DrawText("Buy Health (+20) - 100 Coins", 160, 180, 20, BLACK);
+
+            DrawRectangle(150, 230, 300, 40, LIGHTGRAY);
+            DrawText("Buy Ammo (+10) - 50 Coins", 160, 240, 20, BLACK);
+
+            DrawRectangle(150, 290, 300, 40, LIGHTGRAY);
+            DrawText("Return to Game", 160, 300, 20, BLACK);
+
+            Vector2 mouse = GetMousePosition();
+
+            if (CheckCollisionPointRec(mouse, {150, 170, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                // if (player.GetCoinValue() >= 100) {
+                //     player.AddHealth(20);
+                //     player.SpendCoins(100);
+                // }
+            }
+
+            if (CheckCollisionPointRec(mouse, {150, 230, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                // if (player.GetCoinValue() >= 50) {
+                //     player.AddAmmo(10);
+                //     player.SpendCoins(50);
+                // }
+            }
+
+            if (CheckCollisionPointRec(mouse, {150, 290, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                state = GameState::PLAYING;
+            }
         }
 
         EndDrawing();
