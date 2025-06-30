@@ -69,14 +69,28 @@ std::string Player::GetBulletCount() const
     return "Ammo: " + std::to_string(bulletCount);
 }
 
+void Player::ResetPlayer()
+{
+    health = 3;
+    coins = 0;
+    bulletCount = 10;
+    isAlive = true;
+    x = 300;
+    y = 300;
+}
+
 void Player::TakeDamage()
 {
     health = health - 1;
 
     if(health <= 0) {
         // TODO: Add death system later;
-        // CloseWindow();
+        isAlive = false;
     }
+}
+
+bool Player::IsAlive() const {
+    return isAlive;
 }
 
 Rectangle Player::GetRect() const {

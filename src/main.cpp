@@ -8,7 +8,8 @@
 enum class GameState {
     MENU,
     PLAYING,
-    SHOP
+    SHOP,
+    DEAD
 };
 
 int main() {
@@ -17,8 +18,8 @@ int main() {
 
     
     // Center the player on screen
-    int x = (SCREEN_WIDTH - PLAYER_SIZE) / 2;
-    int y = (SCREEN_HEIGHT - PLAYER_SIZE) / 2;
+    int x = 300;
+    int y = 300;
     
     Camera2D camera = { 0 };
     camera.target = { 0.0f, 0.0f };
@@ -34,7 +35,7 @@ int main() {
         BeginDrawing();
         ClearBackground(backgroundColor);
 
-        if(state != GameState::MENU) {
+        if(state != GameState::MENU && state != GameState::DEAD) {
             DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
             DrawText(player.GetCoinCount().c_str(), 10, 30, 20, BLACK);
             DrawText(player.GetHealth().c_str(), 10, 50, 20, BLACK);
@@ -73,6 +74,9 @@ int main() {
             if(IsKeyPressed(KEY_E)) {
                 state = GameState::SHOP;
             }
+            if(player.IsAlive() == false) {
+                state = GameState::DEAD;
+            }
         } else if (state == GameState::SHOP) {
             DrawRectangle(200, 150, 400, 300, DARKGRAY);
             DrawText("SHOP", 360, 200, 30, WHITE);
@@ -98,6 +102,23 @@ int main() {
 
             if (CheckCollisionPointRec(mouse, {250, 375, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 state = GameState::PLAYING;
+            }
+        } else if(state == GameState::DEAD) {
+            std::string msg = "YOU ARE DEAD";
+            std::string msg2 = "PRESS P TO PLAY";
+            int fontSize = 30;
+            int fontSize2 = 20;
+            int textWidth = MeasureText(msg.c_str(), fontSize);
+            int textWidth2 = MeasureText(msg2.c_str(), fontSize2);
+            int x = (SCREEN_WIDTH - textWidth) / 2;
+            int y = (SCREEN_HEIGHT - textWidth) / 2;
+            int x2 = (SCREEN_WIDTH - textWidth2) / 2;
+            int y2 = (SCREEN_HEIGHT - textWidth2) / 2;
+            DrawText(msg.c_str(), x, y, fontSize, WHITE);
+            DrawText(msg2.c_str(), x2, y2 + 20, fontSize2, BLACK);
+            if(IsKeyPressed(KEY_P)) {
+                state = GameState::PLAYING;
+                game.Reset();
             }
         }
 

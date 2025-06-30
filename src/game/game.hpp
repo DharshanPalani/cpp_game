@@ -10,6 +10,8 @@ class Game {
 public:
     Game(Player& playerRef);
     void Update(CameraShake& shake, Camera2D* camera);
+    void Reset();
+    void SpawnEnemy();
 
     float damageCooldown = 0.0f;
     const float DAMAGE_DELAY = 2.0f;

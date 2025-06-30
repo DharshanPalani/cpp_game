@@ -3,10 +3,13 @@
 #include <cmath>
 
 Game::Game(Player& playerRef) : player(playerRef) {
+    SpawnEnemy();
+}
+// TODO: TEMP CODE NEED TO REMOVE AFTER HAVING WAVE SYSTEM
+void Game::SpawnEnemy() {
     enemies.push_back(Enemy(100, 100, 30, 2, 1, RED));
     enemies.push_back(Enemy(200, 200, 20, 4, 1, BLACK));
     enemies.push_back(Enemy(400, 200, 40, 1, 1, PURPLE));
-    
 }
 
 void Game::Update(CameraShake& shake, Camera2D* camera) {
@@ -100,4 +103,11 @@ void Game::Update(CameraShake& shake, Camera2D* camera) {
             ++i;
         }
     }
+}
+
+void Game::Reset()
+{
+    player.ResetPlayer();
+    enemies.clear();
+    SpawnEnemy();
 }

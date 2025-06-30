@@ -20,6 +20,7 @@ public:
     void IncrementHealth();
 
     void TakeDamage();
+    void ResetPlayer();
 
     std::string GetBulletCount() const;
     std::string GetCoinCount() const;
@@ -27,6 +28,7 @@ public:
     Vector2 GetPosition() const;
     Rectangle GetRect() const;
     std::string GetHealth() const;
+    bool IsAlive() const;
 
 
     int bulletCount = 10;
@@ -37,6 +39,7 @@ private:
     int speed;
     int coins = 10;
     int health = 3;
+    bool isAlive = true;
     Color color;
 
     float timeSinceLastShot = 0.0f;
