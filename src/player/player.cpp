@@ -69,8 +69,23 @@ std::string Player::GetBulletCount() const
     return "Ammo: " + std::to_string(bulletCount);
 }
 
+void Player::TakeDamage()
+{
+    health = health - 1;
+
+    if(health <= 0) {
+        // TODO: Add death system later;
+        // CloseWindow();
+    }
+}
+
 Rectangle Player::GetRect() const {
     return Rectangle{ x, y, float(size), float(size) };
+}
+
+std::string Player::GetHealth() const
+{
+    return "Health: " + std::to_string(health);
 }
 
 std::string Player::GetCoinCount() const
@@ -99,6 +114,10 @@ void Player::IncrementAmmo()
 
 void Player::IncrementHealth()
 {
+    if(coins >= 3) return;
+
+    coins = coins - 3;
+    health = health + 1;
 }
 
 std::vector<Bullet>& Player::GetBullets() {

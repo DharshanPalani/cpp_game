@@ -8,6 +8,8 @@ Game::Game(Player& playerRef) : player(playerRef) {
     enemies.push_back(Enemy(400, 200, 40, 1, 1, PURPLE));
     
 }
+float damageCooldown = 0.0f;
+const float DAMAGE_DELAY = 2.0f;
 void Game::Update(CameraShake& shake, Camera2D* camera) {
     player.Update(shake, camera);
     player.Draw();
@@ -29,6 +31,20 @@ void Game::Update(CameraShake& shake, Camera2D* camera) {
 
     if (!isColliding) {
         enemies[i].MoveTowardsPlayer(player.GetPosition());
+
+        
+        // In your update loop (called every frame)
+        if (damageCooldown > 0.0f) {
+            damageCooldown -= GetFrameTime(); // decrease cooldown timer
+        }
+
+        if (CheckCollisionRecs(enemies[i].GetRect(), player.GetRect())) {
+            if (damageCooldown <= 0.0f) {
+                player.TakeDamage();
+                damageCooldown = DAMAGE_DELAY; // reset the cooldown
+            }
+        }
+
     }
 }
 

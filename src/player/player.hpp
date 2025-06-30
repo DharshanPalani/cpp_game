@@ -19,11 +19,14 @@ public:
     void IncrementAmmo();
     void IncrementHealth();
 
+    void TakeDamage();
+
     std::string GetBulletCount() const;
     std::string GetCoinCount() const;
     std::vector<Bullet>& GetBullets();
     Vector2 GetPosition() const;
     Rectangle GetRect() const;
+    std::string GetHealth() const;
 
 
     int bulletCount = 10;
@@ -33,6 +36,7 @@ private:
     int size;
     int speed;
     int coins = 10;
+    int health = 3;
     Color color;
 
     float timeSinceLastShot = 0.0f;

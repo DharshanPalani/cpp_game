@@ -37,6 +37,7 @@ int main() {
         if(state != GameState::MENU) {
             DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
             DrawText(player.GetCoinCount().c_str(), 10, 30, 20, BLACK);
+            DrawText(player.GetHealth().c_str(), 10, 50, 20, BLACK);
         }
         
         if (state == GameState::MENU) {
