@@ -13,6 +13,13 @@ void Player::Update(CameraShake& shake, Camera2D* camera) {
     if (IsKeyDown(KEY_LEFT)  || IsKeyDown(KEY_A)) x -= speed;
     if (IsKeyDown(KEY_DOWN)  || IsKeyDown(KEY_S)) y += speed;
     if (IsKeyDown(KEY_UP)    || IsKeyDown(KEY_W)) y -= speed;
+
+    if(IsKeyPressed(KEY_R)) {
+        if(coins > 0) {
+            coins = coins - 1;
+            bulletCount = bulletCount + 3;
+        }
+    }
     
     float delta = GetFrameTime();
 
