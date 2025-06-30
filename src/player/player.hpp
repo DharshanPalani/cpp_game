@@ -16,6 +16,9 @@ public:
     void DrawHitBox(bool isColliding) const;
     void IncrementCoins(int coinAmountToIncrement);
 
+    void IncrementAmmo();
+    void IncrementHealth();
+
     std::string GetBulletCount() const;
     std::string GetCoinCount() const;
     std::vector<Bullet>& GetBullets();

@@ -68,42 +68,34 @@ int main() {
         } else if (state == GameState::PLAYING) {
             BeginMode2D(camera);
             game.Update(cameraShake, &camera);
-            // DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
-            // DrawText(player.GetCoinCount().c_str(), 10, 30, 20, BLACK);
             
             if(IsKeyPressed(KEY_E)) {
                 state = GameState::SHOP;
             }
         } else if (state == GameState::SHOP) {
-            DrawRectangle(100, 100, 400, 300, DARKGRAY);
-            DrawText("SHOP", 250, 120, 30, WHITE);
+            DrawRectangle(200, 150, 400, 300, DARKGRAY);
+            DrawText("SHOP", 360, 200, 30, WHITE);
 
-            DrawRectangle(150, 170, 300, 40, LIGHTGRAY);
-            DrawText("Buy Health (+20) - 100 Coins", 160, 180, 20, BLACK);
+            DrawRectangle(250, 275, 300, 40, LIGHTGRAY);
+            DrawText("Buy Health (+20) - 100 Coins", 255, 285, 20, BLACK);
 
-            DrawRectangle(150, 230, 300, 40, LIGHTGRAY);
-            DrawText("Buy Ammo (+10) - 50 Coins", 160, 240, 20, BLACK);
+            DrawRectangle(250, 325, 300, 40, LIGHTGRAY);
+            DrawText("Buy Ammo (+3) - 1 Coins", 255, 335, 20, BLACK);
 
-            DrawRectangle(150, 290, 300, 40, LIGHTGRAY);
-            DrawText("Return to Game", 160, 300, 20, BLACK);
+            DrawRectangle(250, 375, 300, 40, LIGHTGRAY);
+            DrawText("Return to Game", 255, 385, 20, BLACK);
 
             Vector2 mouse = GetMousePosition();
 
-            if (CheckCollisionPointRec(mouse, {150, 170, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-                // if (player.GetCoinValue() >= 100) {
-                //     player.AddHealth(20);
-                //     player.SpendCoins(100);
-                // }
+            if (CheckCollisionPointRec(mouse, {250, 275, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                player.IncrementHealth();
             }
 
-            if (CheckCollisionPointRec(mouse, {150, 230, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-                // if (player.GetCoinValue() >= 50) {
-                //     player.AddAmmo(10);
-                //     player.SpendCoins(50);
-                // }
+            if (CheckCollisionPointRec(mouse, {250, 325, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                player.IncrementAmmo();
             }
 
-            if (CheckCollisionPointRec(mouse, {150, 290, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            if (CheckCollisionPointRec(mouse, {250, 375, 300, 40}) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 state = GameState::PLAYING;
             }
         }
