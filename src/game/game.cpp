@@ -8,8 +8,7 @@ Game::Game(Player& playerRef) : player(playerRef) {
     enemies.push_back(Enemy(400, 200, 40, 1, 1, PURPLE));
     
 }
-float damageCooldown = 0.0f;
-const float DAMAGE_DELAY = 2.0f;
+
 void Game::Update(CameraShake& shake, Camera2D* camera) {
     player.Update(shake, camera);
     player.Draw();
