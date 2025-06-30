@@ -34,3 +34,13 @@ void Enemy::MoveTowardsPlayer(Vector2 playerVector)
         y += direction.y * speed;
     }
 }
+
+
+Vector2 Enemy::GetPosition() const {
+    return { x, y };
+}
+
+void Enemy::Move(float dx, float dy) {
+    x += dx;
+    y += dy;
+}

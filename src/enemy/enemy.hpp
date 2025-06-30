@@ -11,6 +11,10 @@ public:
     bool IsAlive();
     Rectangle GetRect();
 
+    Vector2 GetPosition() const;
+    void Move(float dx, float dy);
+
+
 private:
     float x,y;
     int size;
