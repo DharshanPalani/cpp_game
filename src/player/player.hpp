@@ -3,13 +3,14 @@
 #include <vector>
 #include "raylib.h"
 #include "../bullet/bullet.hpp"
+#include "../camera/camera.hpp"
 #include <string>
 
 class Player {
 public:
     Player(float x, float y, int size, int speed, Color color);
 
-    void Update();
+    void Update(CameraShake& shake, Camera2D* camera);
     void Draw();
     void Shoot();
     void DrawHitBox(bool isColliding) const;

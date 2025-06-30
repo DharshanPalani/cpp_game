@@ -4,9 +4,10 @@
 Game::Game(Player& playerRef) : player(playerRef) {
     enemies.push_back(Enemy(100, 100, 30, 3, 1, RED));
     enemies.push_back(Enemy(200, 200, 20, 3, 1, BLACK));
+    
 }
-void Game::Update() {
-    player.Update();
+void Game::Update(CameraShake& shake, Camera2D* camera) {
+    player.Update(shake, camera);
     player.Draw();
     for (Enemy& enemy : enemies) {
         if(enemy.IsAlive()) {

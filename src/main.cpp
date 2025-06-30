@@ -14,12 +14,18 @@ int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SetTargetFPS(60);
 
+    
     // Center the player on screen
     int x = (SCREEN_WIDTH - PLAYER_SIZE) / 2;
     int y = (SCREEN_HEIGHT - PLAYER_SIZE) / 2;
-
+    
+    Camera2D camera = { 0 };
+    camera.target = { 0.0f, 0.0f };
+    camera.zoom = 1.0f;
+    
     Player player(x, y, PLAYER_SIZE, PLAYER_SPEED, playerColor);
     Game game(player);
+    CameraShake cameraShake;
 
     GameState state = GameState::MENU;
 
@@ -32,7 +38,7 @@ int main() {
             int titleFontSize = 40;
             int optionFontSize = 20;
 
-            const char* titleText = "Shoot the kids";
+            const char* titleText = "Shoot With Gun";
             int titleWidth = MeasureText(titleText, titleFontSize);
             DrawText(titleText, (SCREEN_WIDTH - titleWidth) / 2, 100, titleFontSize, WHITE);
 
@@ -52,8 +58,8 @@ int main() {
             }
 
         } else if (state == GameState::PLAYING) {
-            game.Update();
-
+            BeginMode2D(camera);
+            game.Update(cameraShake, &camera);
             DrawText(player.GetBulletCount().c_str(), 10, 10, 20, BLACK);
             DrawText(player.GetCoinCount().c_str(), 30, 30, 20, BLACK);
         }

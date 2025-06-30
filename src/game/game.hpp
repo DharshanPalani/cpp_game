@@ -4,11 +4,12 @@
 #include "raylib.h"
 #include "vector"
 #include "../enemy/enemy.hpp"
+#include "../camera/camera.hpp"
 
 class Game {
 public:
     Game(Player& playerRef);
-    void Update();
+    void Update(CameraShake& shake, Camera2D* camera);
 
 private:
     Player& player;

@@ -1,21 +1,27 @@
 #include "player.hpp"
 #include "math.h"
 #include "../../config/playerConfig.h"
+#include "../camera/camera.hpp"
 
 Player::Player(float x, float y, int size, int speed, Color color)
     : x(x), y(y), size(size), speed(speed), color(color) {}
 
-void Player::Update() {
+void Player::Update(CameraShake& shake, Camera2D* camera) {
     timeSinceLastShot += GetFrameTime();
 
     if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) x += speed;
     if (IsKeyDown(KEY_LEFT)  || IsKeyDown(KEY_A)) x -= speed;
     if (IsKeyDown(KEY_DOWN)  || IsKeyDown(KEY_S)) y += speed;
     if (IsKeyDown(KEY_UP)    || IsKeyDown(KEY_W)) y -= speed;
+    
+    float delta = GetFrameTime();
 
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && timeSinceLastShot >= PLAYER_FIRE_RATE) {
+        shake.ShakeCamera(camera, 0.1f, 10, delta);
         Shoot();
         timeSinceLastShot = 0;
+    } else {
+        shake.ShakeCamera(camera, 0, 0, delta);
     }
 
     for (auto& bullet : bullets) {
@@ -32,7 +38,8 @@ void Player::Draw() {
 
 void Player::Shoot() {
 
-    if(bulletCount <= 0) return; 
+    if(bulletCount <= 0) return;
+    
 
     Vector2 mousePos = GetMousePosition();
 
