@@ -82,7 +82,7 @@ int main() {
             DrawText("SHOP", 360, 200, 30, WHITE);
 
             DrawRectangle(250, 275, 300, 40, LIGHTGRAY);
-            DrawText("Buy Health (+20) - 100 Coins", 255, 285, 20, BLACK);
+            DrawText("Buy Health (+1) - 3 Coins", 255, 285, 20, BLACK);
 
             DrawRectangle(250, 325, 300, 40, LIGHTGRAY);
             DrawText("Buy Ammo (+3) - 1 Coins", 255, 335, 20, BLACK);
