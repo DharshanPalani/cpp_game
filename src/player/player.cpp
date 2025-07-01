@@ -128,7 +128,7 @@ void Player::IncrementAmmo()
 
 void Player::IncrementHealth()
 {
-    if(coins <= 3) return;
+    if(coins < 2 ) return;
 
     coins = coins - 3;
     health = health + 1;
